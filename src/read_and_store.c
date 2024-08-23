@@ -106,24 +106,26 @@ void	store_map(char *file_read, t_data *img)
 void	store_map_help(char **tmp_split, t_data *img, int i)
 {
 	int		j;
+	float	scale;
+	int	x_offset;
+	int	y_offset;
 	t_save	coord;
-	float	x_move;
-	float	y_move;
-	int		tmp_x;
-	int		tmp_y;
 
 	j = 0;
-	// coord.x_med_map = (float) img->collon / 2;
-	// coord.x_med_screen = (float) coord.x_med_map * ((float) (WIN_Y/img->collon)/img->collon*img->zoom);
-	// coord.y_med_map = (float) img->row / 2;
-	// coord.y_med_screen = (float) coord.y_med_map * ((float) (WIN_Y/img->row)/img->row*img->zoom);
-	// x_move = WIN_X / 2 - coord.x_med_screen;
-	// y_move = WIN_Y / 2 - coord.y_med_screen;
-	img->zoom = ft_min(WIN_X / img->collon / 2, WIN_Y / img->row / 2);
+	// x_offset = (WIN_X / (img->row / 5));
+	// y_offset = (WIN_Y / (img->row * img->row * 2));
+	x_offset = ((WIN_X / 2) - (img->collon / 2));
+	y_offset = ((WIN_Y / 2) - (img->row / 2));
+	scale = ft_min(round(WIN_X / img->collon / 2),
+			round(WIN_Y / img->row / 2));
+	printf("scale = %f\n", scale);
 	while (tmp_split[j])
 	{
-		img->map_info[i][j].x = j * img->zoom;
-		img->map_info[i][j].y = i * img->zoom;
+		img->map_info[i][j].x = j * 55;
+		img->map_info[i][j].y = i * 55;
+		img->map_info[i][j].x += x_offset;
+		img->map_info[i][j].y += y_offset;
+		printf("%d \t %d \n", img->map_info[i][j].x, img->map_info[i][j].y);
 		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
 		img->map_info[i][j].color = 0x00FF0000;
 		j++;

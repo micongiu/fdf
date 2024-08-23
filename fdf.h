@@ -101,6 +101,7 @@ t_m_info	**ft_mem(t_data *img, t_m_info **copy);
 t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy);
 void		free_matrix_t_m_info(t_m_info **matrix);
 void		ft_help_c(t_data *img, t_m_info **copy);
+int			ft_min(int first, int second);
 
 int 		ft_ipart(float x);
 int 		ft_round(float x);
