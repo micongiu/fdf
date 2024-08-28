@@ -3,8 +3,8 @@ NAME = fdf
 CC = gcc
 CFLAGS = -Wall -Wextra -g -I./include -O2
 
-SRCS = ./src/main.c ./src/read_and_store.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c ./src/xiaolin_wu.c ./src/utility.c ./src/utility_2.c  \
-		./src/ft_mlx.c ./src/print_map.c ./src/xiaolin_wu_utility.c ./src/utility_3.c 
+SRCS = ./src/main.c ./src/read_and_store.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c ./src/utility.c ./src/utility_2.c  \
+		./src/ft_mlx.c ./src/print_map.c
 SRC_DIRS = ./src
 OBJS = ${SRCS:.c=.o}
 

@@ -44,7 +44,6 @@ typedef struct s_data
 	float		zoom;
 	int			translation_x;
 	int			translation_y;
-	int			yes_no;
 }				t_data;
 
 typedef struct s_save
@@ -59,19 +58,9 @@ typedef struct s_draw
 {
 	float	dx;
 	float	dy;
-	float	diff_x;
-	float	diff_y;
 	float	sign_x;
 	float	sign_y;
-	float	angle;
-	float	interse_y;
-	float	interse_x;
-	int		xend;
-	int		yend;
-	int		xpxl1;
-	int		xpxl2;
-	int		ypxl1;
-	int		ypxl2;
+	float	error[2];
 }				t_draw_var;
 
 int			main(int argc, char **argv);
@@ -82,18 +71,17 @@ char		**read_file(int i, char **str_read, int fd);
 void		store_map(char *file_read, t_data *img);
 void		store_map_help(char **tmp_split, t_data *img, int i);
 
-void		xiaolin_wu(int index, t_m_info *copy, t_data *data);
-void		xiaolin_wu_2(int index_y, int index_x, t_m_info **copy, t_data *data);
-
-void		ft_swap(int *a, int *b);
 void		free_matrix(char **matrix);
 void		free_matrix_t_data(t_data *matrix);
 void		ft_error(char *str);
+int			ft_min(int first, int second);
+void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
-int			ft_close(t_data *env);
+int			ft_close(t_data *img);
 void		ft_init(t_data *img);
-int			ft_key(int key, t_data *env);
+int			ft_key(int key, t_data *img);
 
+void		ft_isometric_change(t_data *img, t_m_info **copy);
 void		ft_draw(t_data *img);
 
 int 		ft_count_nb(char *mat);
@@ -101,12 +89,5 @@ t_m_info	**ft_mem(t_data *img, t_m_info **copy);
 t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy);
 void		free_matrix_t_m_info(t_m_info **matrix);
 void		ft_help_c(t_data *img, t_m_info **copy);
-int			ft_min(int first, int second);
-
-int 		ft_ipart(float x);
-int 		ft_round(float x);
-float 		ft_fpart(float x);
-float 		ft_rfpart(float x);
-float		ft_abs(float x);
 
 #endif

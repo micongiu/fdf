@@ -83,22 +83,23 @@ void	store_map(char *file_read, t_data *img)
 	char		**tmp_split;
 	char		**matrix_fileread;
 
-	i = -1;
+	i = 0;
 	k = 0;
 	matrix_fileread = open_file(file_read);
 	img->map_info = NULL;
 	allocate_mem(matrix_fileread, img);
-	while (matrix_fileread[++i])
+	while (matrix_fileread[i])
 	{
 		tmp_split = ft_split(matrix_fileread[i], ' ');
 		if (tmp_split == NULL)
 			ft_error("Error in the allocate");
 		while (tmp_split[k])
 			k++;
-		free(tmp_split[k - 1]);
-		tmp_split[k - 1] = NULL;
+		// free(tmp_split[k - 1]);
+		// tmp_split[k - 1] = NULL;
 		store_map_help(tmp_split, img, i);
 		free_matrix(tmp_split);
+		i++;
 	}
 	free_matrix(matrix_fileread);
 }
@@ -114,18 +115,18 @@ void	store_map_help(char **tmp_split, t_data *img, int i)
 	j = 0;
 	// x_offset = (WIN_X / (img->row / 5));
 	// y_offset = (WIN_Y / (img->row * img->row * 2));
-	x_offset = ((WIN_X / 2) - (img->collon / 2));
-	y_offset = ((WIN_Y / 2) - (img->row / 2));
+	x_offset = ((WIN_X / 2) / 4 - (img->collon / 2));
+	y_offset = ((WIN_Y / 2) / 4 - (img->row / 2));
 	scale = ft_min(round(WIN_X / img->collon / 2),
 			round(WIN_Y / img->row / 2));
-	printf("scale = %f\n", scale);
+	// printf("scale = %f\n", scale);
 	while (tmp_split[j])
 	{
 		img->map_info[i][j].x = j * 55;
 		img->map_info[i][j].y = i * 55;
 		img->map_info[i][j].x += x_offset;
 		img->map_info[i][j].y += y_offset;
-		printf("%d \t %d \n", img->map_info[i][j].x, img->map_info[i][j].y);
+		// printf("%d \t %d \n", img->map_info[i][j].x, img->map_info[i][j].y);
 		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
 		img->map_info[i][j].color = 0x00FF0000;
 		j++;
