@@ -61,6 +61,8 @@ typedef struct s_draw
 	float	sign_x;
 	float	sign_y;
 	float	error[2];
+	int		x_print;
+	int		y_print;
 }				t_draw_var;
 
 int			main(int argc, char **argv);

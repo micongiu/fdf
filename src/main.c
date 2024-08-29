@@ -15,5 +15,6 @@ int	main(int argc, char **argv)
 	ft_draw(&img);
 	mlx_hook(img.mlx_win, ON_DESTROY, 0, ft_close, &img);
 	mlx_hook(img.mlx_win, 2, 1L << 0, ft_key, &img);
+	// return (0);
 	mlx_loop(img.mlx);
 }

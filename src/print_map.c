@@ -24,7 +24,7 @@ void	ft_isometric_change(t_data *img, t_m_info **copy)
 	}
 }
 
-int	ft_move_map(t_data *img, t_m_info **copy)
+void	ft_move_map(t_data *img, t_m_info **copy)
 {
 	size_t		i;
 	size_t		j;
@@ -44,7 +44,6 @@ int	ft_move_map(t_data *img, t_m_info **copy)
 		}
 		i++;
 	}
-	return (-1);
 }
 
 void bresenhamLine_x(t_data *img, t_m_info **copy, int j, int i)
@@ -56,21 +55,21 @@ void bresenhamLine_x(t_data *img, t_m_info **copy, int j, int i)
 	var.sign_x = (copy[i][j].x < copy[i][j + 1].x) ? 1 : -1;
 	var.sign_y = (copy[i][j].y < copy[i][j + 1].y) ? 1 : -1;
 	var.error[0] = var.dx - var.dy;
-	while (1)
+	var.x_print = copy[i][j].x;
+	var.y_print = copy[i][j].y;
+	while (var.x_print != copy[i][j + 1].x || var.y_print != copy[i][j + 1].y)
 	{
-		my_mlx_pixel_put(img, copy[i][j].x, copy[i][j].y, 0xFFFFFF);
-		if (copy[i][j].x == copy[i][j + 1].x && copy[i][j].y == copy[i][j + 1].y)
-			break;
+		my_mlx_pixel_put(img, var.x_print, var.y_print, 0xFFFFFF);
 		var.error[1] = 2 * var.error[0];
 		if (var.error[1] > -var.dy)
 		{
 			var.error[0] -= var.dy;
-			copy[i][j].x += var.sign_x;
+			var.x_print += var.sign_x;
 		}
 		if (var.error[1] < var.dx)
 		{
 			var.error[0] += var.dx;
-			copy[i][j].y += var.sign_y;
+			var.y_print += var.sign_y;
 		}
 	}
 }
@@ -84,21 +83,23 @@ void bresenhamLine_y(t_data *img, t_m_info **copy, int j, int i)
 	var.sign_x = (copy[i][j].x < copy[i + 1][j].x) ? 1 : -1;
 	var.sign_y = (copy[i][j].y < copy[i + 1][j].y) ? 1 : -1;
 	var.error[0] = var.dx - var.dy;
+	var.x_print = copy[i][j].x;
+	var.y_print = copy[i][j].y;
 	while (1)
 	{
-		my_mlx_pixel_put(img, copy[i][j].x, copy[i][j].y, 0xFFFFFF);
-		if (copy[i][j].x == copy[i + 1][j].x && copy[i][j].y == copy[i + 1][j].y)
+		my_mlx_pixel_put(img, var.x_print, var.y_print, 0xFFFFFF);
+		if (var.x_print == copy[i + 1][j].x && var.y_print == copy[i + 1][j].y)
 			break;
 		var.error[1] = 2 * var.error[0];
 		if (var.error[1] > -var.dy)
 		{
 			var.error[0] -= var.dy;
-			copy[i][j].x += var.sign_x;
+			var.x_print += var.sign_x;
 		}
 		if (var.error[1] < var.dx)
 		{
 			var.error[0] += var.dx;
-			copy[i][j].y += var.sign_y;
+			var.y_print += var.sign_y;
 		}
 	}
 }
@@ -107,26 +108,26 @@ void	ft_draw(t_data *img)
 {
 	size_t		i;
 	size_t		j;
-	t_m_info 	**copy_x;
-	t_m_info 	**copy_y;
+	t_m_info 	**copy_map;
 
-	copy_x = ft_mem(img, copy_x);
-	copy_y = ft_mem(img, copy_y);
-	i = ft_move_map(img, copy_x);
-	j = ft_move_map(img, copy_y);
+	copy_map = ft_mem(img, copy_map);
+	ft_move_map(img, copy_map);
 	ft_bzero(img->addr, WIN_X * WIN_Y * (img->bits_per_pixel / 8));
-	while (++i < img->collon)
+	i = 0;
+	j = 0;
+	while (i < img->collon)
 	{
-		j = -1;
-		while (++j < img->row)
+		j = 0;
+		while (j < img->row)
 		{
 			if (j < img->row - 1)
-				bresenhamLine_x(img, copy_x, j, i);
+				bresenhamLine_x(img, copy_map, j, i);
 			if (i < img->collon - 1)
-				bresenhamLine_y(img, copy_y, j, i);
+				bresenhamLine_y(img, copy_map, j, i);
+			j++;
 		}
+		i++;
 	}
-	free_matrix_t_m_info(copy_x);
-	free_matrix_t_m_info(copy_y);
+	free_matrix_t_m_info(copy_map);
 	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
 }
