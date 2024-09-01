@@ -69,7 +69,7 @@ int			main(int argc, char **argv);
 
 void		allocate_mem(char **mat, t_data *allocate);
 char		**open_file(char *file_read);
-char		**read_file(int i, char **str_read, int fd);
+char		**read_file_try(char **str_read, int fd, char *file_read);
 void		store_map(char *file_read, t_data *img);
 void		store_map_help(char **tmp_split, t_data *img, int i);
 

@@ -13,7 +13,7 @@ void	allocate_mem(char **mat, t_data *allocate)
 	if (allocate->map_info == NULL)
 		ft_error("Error in the allocate");
 	i = 0;
-	allo = ft_count_nb(mat[i]);
+	allo = ft_count_nb(mat[0]);
 	while (mat[i])
 	{
 		allocate->map_info[i] = (t_m_info *)ft_calloc((allo + 1), sizeof(t_m_info ));
@@ -44,34 +44,34 @@ char	**open_file(char *file_read)
 		free_matrix(str_read);
 		exit(0);
 	}
-	str_return = read_file(i, str_read, fd);
+	str_return = read_file_try(str_read, fd, file_read);
 	return (close(fd), str_return);
 }
 
-char	**read_file(int i, char **str_read, int fd)
+char	**read_file_try(char **str_read, int fd, char *file_read)
 {
 	int		k;
-	char	**tmp;
+	int		i;
+	int		allo;
 
 	k = 0;
-	while (str_read[i] != NULL)
+	i = 0;
+	while (str_read[0] != NULL)
 	{
+		free(str_read[0]);
 		i++;
-		str_read[i] = get_next_line(fd);
-		k = -1;
-		tmp = ft_calloc((i + 2), sizeof(char **));
-		if (tmp == NULL)
-			ft_error("Error in the allocate");
-		while (++k <= i)
-			tmp[k] = ft_strdup(str_read[k]);
-		free_matrix(str_read);
-		str_read = ft_calloc((i + 3), sizeof(char **));
-		if (str_read == NULL)
-			ft_error("Error in the allocate");
-		k = -1;
-		while (++k <= i)
-			str_read[k] = ft_strdup(tmp[k]);
-		free_matrix(tmp);
+		str_read[0] = get_next_line(fd);
+	}
+	close(fd);
+	free_matrix(str_read);
+	fd = open(file_read, O_RDONLY);
+	str_read = ft_calloc((i + 2), sizeof(char **));
+	if (str_read == NULL)
+		ft_error("Error in the allocate");
+	while (k < i)
+	{
+		str_read[k] = get_next_line(fd);
+		k++;
 	}
 	return (str_read);
 }
