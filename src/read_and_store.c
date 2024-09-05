@@ -18,7 +18,7 @@ void	allocate_mem(char **mat, t_data *allocate)
 	{
 		allocate->map_info[i] = (t_m_info *)ft_calloc((allo + 1), sizeof(t_m_info ));
 		if (allocate->map_info[i] == NULL)
-			return(free_matrix_t_data(allocate), ft_error("Error in the allocate"));
+			return(free_matrix((void **)allocate->map_info), ft_error("Error in the allocate"));
 		i++;
 	}
 	allocate->row = allo;
@@ -41,7 +41,7 @@ char	**open_file(char *file_read)
 	if (str_read[0] == NULL)
 	{
 		ft_printf("Error in the reading\n");
-		free_matrix(str_read);
+		free_matrix((void **)str_read);
 		exit(0);
 	}
 	str_return = read_file_try(str_read, fd, file_read);
@@ -63,7 +63,7 @@ char	**read_file_try(char **str_read, int fd, char *file_read)
 		str_read[0] = get_next_line(fd);
 	}
 	close(fd);
-	free_matrix(str_read);
+	free_matrix((void **)str_read);
 	fd = open(file_read, O_RDONLY);
 	str_read = ft_calloc((i + 2), sizeof(char **));
 	if (str_read == NULL)
@@ -98,10 +98,10 @@ void	store_map(char *file_read, t_data *img)
 		// free(tmp_split[k - 1]);
 		// tmp_split[k - 1] = NULL;
 		store_map_help(tmp_split, img, i);
-		free_matrix(tmp_split);
+		free_matrix((void **)tmp_split);
 		i++;
 	}
-	free_matrix(matrix_fileread);
+	free_matrix((void **)matrix_fileread);
 }
 
 void	store_map_help(char **tmp_split, t_data *img, int i)

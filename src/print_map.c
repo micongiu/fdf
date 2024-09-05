@@ -126,6 +126,6 @@ void	ft_draw(t_data *img)
 		}
 		i++;
 	}
-	free_matrix_t_m_info(copy_map);
+	free_matrix((void **)copy_map);
 	mlx_put_image_to_window(img->mlx, img->mlx_win, img->img, 0, 0);
 }

@@ -5,7 +5,7 @@ int	ft_close(t_data *img)
 	mlx_destroy_image(img->mlx, img->img);
 	mlx_destroy_window(img->mlx, img->mlx_win);
 	free(img->mlx);
-	free_matrix_t_data(img);
+	free_matrix((void **)img->map_info);;
 	exit (1);
 }
 
@@ -16,7 +16,7 @@ int	ft_key(int key, t_data *img)
 		mlx_destroy_image(img->mlx, img->img);
 		mlx_destroy_window(img->mlx, img->mlx_win);
 		free(img->mlx);
-		free_matrix_t_data(img);
+		free_matrix((void **)img->map_info);
 		exit (1);
 	}
 	if (key == KEY_LEFT)

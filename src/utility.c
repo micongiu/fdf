@@ -1,6 +1,6 @@
 #include "../fdf.h"
 
-void	free_matrix(char **matrix)
+void	free_matrix(void **matrix)
 {
 	size_t	i;
 
@@ -15,20 +15,6 @@ void	free_matrix(char **matrix)
 	}
 	free(matrix);
 	matrix = NULL;
-}
-
-void	free_matrix_t_data(t_data *matrix)
-{
-	size_t	i;
-
-	i = 0;
-	while (matrix->map_info[i])
-	{
-		free(matrix->map_info[i]);
-		i++;
-	}
-	free(matrix->map_info);
-	matrix->map_info = NULL;
 }
 
 void	ft_error(char *str)
@@ -55,4 +41,12 @@ int	ft_min(int first, int second)
 	if (first > second)
 		return (first);
 	return (second);
+}
+
+int	ft_atoi_base(char *str)
+{
+	int	result;
+
+	result = 0;
+	return (result);
 }

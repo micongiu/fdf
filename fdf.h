@@ -73,8 +73,7 @@ char		**read_file_try(char **str_read, int fd, char *file_read);
 void		store_map(char *file_read, t_data *img);
 void		store_map_help(char **tmp_split, t_data *img, int i);
 
-void		free_matrix(char **matrix);
-void		free_matrix_t_data(t_data *matrix);
+void		free_matrix(void **matrix);
 void		ft_error(char *str);
 int			ft_min(int first, int second);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
@@ -89,7 +88,6 @@ void		ft_draw(t_data *img);
 int 		ft_count_nb(char *mat);
 t_m_info	**ft_mem(t_data *img, t_m_info **copy);
 t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy);
-void		free_matrix_t_m_info(t_m_info **matrix);
 void		ft_help_c(t_data *img, t_m_info **copy);
 
 #endif

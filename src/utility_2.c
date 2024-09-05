@@ -11,6 +11,11 @@ int ft_count_nb(char *mat)
 	{
 		if (mat[j] >= 48 && mat[j] <= 57)
 			allo++;
+		if (mat[j] == ',')
+		{
+			while (mat[j] != ' ')
+				j++;
+		}
 		j++;
 	}
 	return (allo);
@@ -28,7 +33,7 @@ t_m_info	**ft_mem(t_data *img, t_m_info **copy)
 	copy = (t_m_info **)ft_calloc((i + 1), sizeof(t_m_info *));
 	if (copy == NULL)
 	{
-		free_matrix_t_data(img);
+		free_matrix((void **)img->map_info);
 		ft_error("Error in the allocate");
 	}
 	i = 0;
@@ -67,23 +72,9 @@ t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy)
 	return (copy);
 }
 
-void	free_matrix_t_m_info(t_m_info **matrix)
-{
-	size_t	i;
-
-	i = 0;
-	while (matrix[i])
-	{
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-	matrix = NULL;
-}
-
 void	ft_help_c(t_data *img, t_m_info **copy)
 {
-	free_matrix_t_m_info(copy);
-	free_matrix_t_data(img);
+	free_matrix((void **)copy);
+	free_matrix((void **)img->map_info);
 	ft_error("Error in the allocate");
 }
