@@ -10,13 +10,14 @@ int ft_count_nb(char *mat)
 	while(mat[j])
 	{
 		if (mat[j] >= 48 && mat[j] <= 57)
-			allo++;
-		if (mat[j] == ',')
 		{
-			while (mat[j] != ' ')
-				j++;
+			allo++;
+			j++;
 		}
-		j++;
+		while (mat[j] && mat[j] != ' ')
+			j++;
+		if (mat[j])
+			j++;
 	}
 	return (allo);
 }

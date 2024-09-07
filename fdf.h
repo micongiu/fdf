@@ -75,8 +75,9 @@ void		store_map_help(char **tmp_split, t_data *img, int i);
 
 void		free_matrix(void **matrix);
 void		ft_error(char *str);
-int			ft_min(int first, int second);
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+int			ft_min(int first, int second);
+int			ft_atoi_base(char *str);
 
 int			ft_close(t_data *img);
 void		ft_init(t_data *img);

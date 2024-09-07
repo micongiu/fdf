@@ -126,9 +126,9 @@ void	store_map_help(char **tmp_split, t_data *img, int i)
 		img->map_info[i][j].y = i * 55;
 		img->map_info[i][j].x += x_offset;
 		img->map_info[i][j].y += y_offset;
-		// printf("%d \t %d \n", img->map_info[i][j].x, img->map_info[i][j].y);
 		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
-		img->map_info[i][j].color = 0x00FF0000;
+		img->map_info[i][j].color = ft_atoi_base(tmp_split[j]);
+		printf("%d %d\n", img->map_info[i][j].z, img->map_info[i][j].color);
 		j++;
 	}
 }
