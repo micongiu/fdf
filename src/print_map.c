@@ -57,9 +57,10 @@ void bresenhamLine_x(t_data *img, t_m_info **copy, int j, int i)
 	var.error[0] = var.dx - var.dy;
 	var.x_print = copy[i][j].x;
 	var.y_print = copy[i][j].y;
+	var.percent = 0.0;
 	while (var.x_print != copy[i][j + 1].x || var.y_print != copy[i][j + 1].y)
 	{
-		my_mlx_pixel_put(img, var.x_print, var.y_print, 0xFFFFFF);
+		pixel_put(img, var.x_print, var.y_print, get_color_x(copy, var, j, i));
 		var.error[1] = 2 * var.error[0];
 		if (var.error[1] > -var.dy)
 		{
@@ -85,9 +86,10 @@ void bresenhamLine_y(t_data *img, t_m_info **copy, int j, int i)
 	var.error[0] = var.dx - var.dy;
 	var.x_print = copy[i][j].x;
 	var.y_print = copy[i][j].y;
+	var.percent = 0.0;
 	while (var.x_print != copy[i + 1][j].x || var.y_print != copy[i + 1][j].y)
 	{
-		my_mlx_pixel_put(img, var.x_print, var.y_print, 0xFFFFFF);
+		pixel_put(img, var.x_print, var.y_print, get_color_y(copy, var, j, i));
 		var.error[1] = 2 * var.error[0];
 		if (var.error[1] > -var.dy)
 		{

@@ -46,4 +46,5 @@ void	ft_init(t_data *img)
 	img->zoom = 1;
 	img->translation_y = 0;
 	img->translation_x = 0;
+	img->map_info = NULL;
 }

@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g -I./include -O2
 
 SRCS = ./src/main.c ./src/read_and_store.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c ./src/utility.c ./src/utility_2.c  \
-		./src/ft_mlx.c ./src/print_map.c
+		./src/ft_mlx.c ./src/print_map.c ./src/colour_management.c
 SRC_DIRS = ./src
 OBJS = ${SRCS:.c=.o}
 
@@ -25,7 +25,7 @@ $(OBJ_DIR)/%.o: %.c
 	@mkdir -p ./obj/ft_printf
 	@mkdir -p ./obj/libft
 	@mkdir -p ./obj/ft_printf
-	$(CC) -g -c $< -o $@;
+	@$(CC) -g -c $< -o $@;
 
 all: $(NAME)
 
@@ -44,14 +44,14 @@ clean:
 	@make clean -C minilibx-linux/
 	@make clean -sC libft/
 	@rm -rf $(OBJS)
-	${RM} -r ${OBJ_DIR}
+	@${RM} -r ${OBJ_DIR}
 	@echo "$(GREEN)EVERYTHING HAS CLEAN!$(COLOUR_END)"
 
 fclean: clean
 	@rm -f $(NAME)
-	$(RM) -f $(PRINTF)
-	$(RM) -f $(LIBFT)
-	$(RM) -f $(minilibx-linux/)libmlx.a
+	@$(RM) -f $(PRINTF)
+	@$(RM) -f $(LIBFT)
+	@$(RM) -f $(minilibx-linux/)libmlx.a
 	@echo "$(BLUE)EVERYTHING HAS FCLEAN!$(COLOUR_END)"
 
 re: fclean all

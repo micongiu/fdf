@@ -79,24 +79,25 @@ char	**read_file_try(char **str_read, int fd, char *file_read)
 void	store_map(char *file_read, t_data *img)
 {
 	int			i;
-	int			k;
+	int			j;
 	char		**tmp_split;
 	char		**matrix_fileread;
 
 	i = 0;
-	k = 0;
 	matrix_fileread = open_file(file_read);
-	img->map_info = NULL;
 	allocate_mem(matrix_fileread, img);
 	while (matrix_fileread[i])
 	{
+		j = 0;
+		while (matrix_fileread[i][j])
+		{
+			if (matrix_fileread[i][j] == '\n')
+				matrix_fileread[i][j] = '\0';
+			j++;
+		}
 		tmp_split = ft_split(matrix_fileread[i], ' ');
 		if (tmp_split == NULL)
 			ft_error("Error in the allocate");
-		while (tmp_split[k])
-			k++;
-		// free(tmp_split[k - 1]);
-		// tmp_split[k - 1] = NULL;
 		store_map_help(tmp_split, img, i);
 		free_matrix((void **)tmp_split);
 		i++;
@@ -104,31 +105,46 @@ void	store_map(char *file_read, t_data *img)
 	free_matrix((void **)matrix_fileread);
 }
 
+int		set_scale(t_data *img)
+{
+	int sx;
+	int sy;
+	int	scale;
+
+	scale = 0;
+	sx = (WIN_X - 200) / img->collon;
+	sy = (WIN_Y - 200) / img->row;
+	if (sx < sy)
+		scale = sx / 2;
+	else
+		scale = sy / 2;
+	return (scale == 0 ? scale = 1 : 0);
+}
+
 void	store_map_help(char **tmp_split, t_data *img, int i)
 {
 	int		j;
-	float	scale;
-	int	x_offset;
-	int	y_offset;
-	t_save	coord;
+	double	scale;
+	int		x_offset;
+	int		y_offset;
 
 	j = 0;
-	// x_offset = (WIN_X / (img->row / 5));
-	// y_offset = (WIN_Y / (img->row * img->row * 2));
-	x_offset = ((WIN_X / 2) / 4 - (img->collon / 2));
-	y_offset = ((WIN_Y / 2) / 4 - (img->row / 2));
-	scale = ft_min(round(WIN_X / img->collon / 2),
-			round(WIN_Y / img->row / 2));
-	// printf("scale = %f\n", scale);
+	x_offset = round(WIN_X / 3.5);
+	y_offset = round(WIN_Y / 8.5);
+	scale = (ft_min((WIN_X / img->collon), (WIN_Y / img->row)));
+	if (scale <= 4)
+		scale = 2;
+	else
+		scale /= 2;
 	while (tmp_split[j])
 	{
-		img->map_info[i][j].x = j * 55;
-		img->map_info[i][j].y = i * 55;
-		img->map_info[i][j].x += x_offset;
-		img->map_info[i][j].y += y_offset;
+		img->map_info[i][j].x = (j * scale) + x_offset;
+		img->map_info[i][j].y = (i * scale) + y_offset;
 		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
 		img->map_info[i][j].color = ft_atoi_base(tmp_split[j]);
-		printf("%d %d\n", img->map_info[i][j].z, img->map_info[i][j].color);
 		j++;
 	}
 }
+
+
+

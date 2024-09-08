@@ -41,26 +41,19 @@ typedef struct s_data
 	t_m_info	**map_info;
 	int			row;
 	int			collon;
-	float		zoom;
+	double		zoom;
 	int			translation_x;
 	int			translation_y;
 }				t_data;
 
-typedef struct s_save
-{
-	float	x_med_map;
-	float	y_med_map;
-	float	x_med_screen;
-	float	y_med_screen;
-}				t_save;
-
 typedef struct s_draw
 {
-	float	dx;
-	float	dy;
-	float	sign_x;
-	float	sign_y;
-	float	error[2];
+	double	dx;
+	double	dy;
+	double	sign_x;
+	double	sign_y;
+	double	error[2];
+	double	percent;
 	int		x_print;
 	int		y_print;
 }				t_draw_var;
@@ -75,9 +68,8 @@ void		store_map_help(char **tmp_split, t_data *img, int i);
 
 void		free_matrix(void **matrix);
 void		ft_error(char *str);
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		pixel_put(t_data *data, int x, int y, int color);
 int			ft_min(int first, int second);
-int			ft_atoi_base(char *str);
 
 int			ft_close(t_data *img);
 void		ft_init(t_data *img);
@@ -90,5 +82,10 @@ int 		ft_count_nb(char *mat);
 t_m_info	**ft_mem(t_data *img, t_m_info **copy);
 t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy);
 void		ft_help_c(t_data *img, t_m_info **copy);
+
+double		ft_cent(int first, int second, int attualy);
+int			get_color_x(t_m_info **copy, t_draw_var var, int j, int i);
+int			get_color_y(t_m_info **copy, t_draw_var var, int j, int i);
+int			ft_atoi_base(char *str);
 
 #endif

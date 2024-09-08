@@ -66,6 +66,7 @@ t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy)
 			copy[i][j].x = img->map_info[i][j].x;
 			copy[i][j].y = img->map_info[i][j].y;
 			copy[i][j].z = img->map_info[i][j].z;
+			copy[i][j].color = img->map_info[i][j].color;
 			j++;
 		}
 		i++;

@@ -23,7 +23,7 @@ void	ft_error(char *str)
 	exit(0);
 }
 
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void	pixel_put(t_data *data, int x, int y, int color)
 {
 	int		i;
 
@@ -33,6 +33,7 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 		data->addr[i] = color;
 		data->addr[++i] = color >> 8;
 		data->addr[++i] = color >> 16;
+		data->addr[++i] = 0;
 	}
 }
 
@@ -41,29 +42,4 @@ int	ft_min(int first, int second)
 	if (first > second)
 		return (first);
 	return (second);
-}
-
-int	ft_atoi_base(char *str)
-{
-	int	result;
-	int	i;
-
-	// printf("str = %s\n", str);
-	i = 0;
-	result = 0;
-	while (str[i] != ',')
-		i++;
-	// i++;
-	while (str[i] && str[i] != ' ')
-	{
-		result *= 16;
-		if (str[i] >= '0' && str[i] <= 9)
-			result += str[i] - '0';
-		else if (str[i] >= 'a' && str[i] <= 'f')
-			result += str[i] - 'a' + 10;
-		else if (str[i] >= 'A' && str[i] <= 'F')
-			result += str[i] - 'A' + 10;
-		i++;
-	}
-	return (result);
 }
