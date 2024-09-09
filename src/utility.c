@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utility.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 14:29:42 by micongiu          #+#    #+#             */
+/*   Updated: 2024/09/09 15:58:41 by micongiu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 void	free_matrix(void **matrix)
@@ -42,4 +54,22 @@ int	ft_min(int first, int second)
 	if (first > second)
 		return (first);
 	return (second);
+}
+
+int	set_scale(t_data *img)
+{
+	int	sx;
+	int	sy;
+	int	scale;
+
+	scale = 0;
+	sx = (WIN_X - 200) / img->collon;
+	sy = (WIN_Y - 200) / img->row;
+	if (sx < sy)
+		scale = sx / 2;
+	else
+		scale = sy / 2;
+	if (scale == 0)
+		return (1);
+	return (scale);
 }

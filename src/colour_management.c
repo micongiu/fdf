@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   colour_management.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 14:28:28 by micongiu          #+#    #+#             */
+/*   Updated: 2024/09/09 14:34:12 by micongiu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 double	ft_cent(int first, int second, int attualy)
@@ -25,12 +37,12 @@ int	get_color_x(t_m_info **copy, t_draw_var var, int j, int i)
 		percent = ft_cent(copy[i][j].x, copy[i][j + 1].x, var.x_print);
 	else
 		percent = ft_cent(copy[i][j].y, copy[i][j + 1].y, var.y_print);
-	red = find_bri((copy[i][j].color >> 16) & 0xFF,
-					(copy[i][j + 1].color >> 16) & 0xFF, percent);
-	green = find_bri((copy[i][j].color >> 8) & 0xFF,
-					(copy[i][j + 1].color >> 8) & 0xFF, percent);
-	blue = find_bri(copy[i][j].color & 0xFF,
-					copy[i][j + 1].color & 0xFF, percent);
+	red = find_bri((copy[i][j].color >> 16) & 0xff,
+			(copy[i][j + 1].color >> 16) & 0xff, percent);
+	green = find_bri((copy[i][j].color >> 8) & 0xff,
+			(copy[i][j + 1].color >> 8) & 0xff, percent);
+	blue = find_bri(copy[i][j].color & 0xff,
+			copy[i][j + 1].color & 0xff, percent);
 	return ((red << 16) | (green << 8) | blue);
 }
 
@@ -47,19 +59,19 @@ int	get_color_y(t_m_info **copy, t_draw_var var, int j, int i)
 		percent = ft_cent(copy[i][j].x, copy[i + 1][j].x, var.x_print);
 	else
 		percent = ft_cent(copy[i][j].y, copy[i + 1][j].y, var.y_print);
-	red = find_bri((copy[i][j].color >> 16) & 0xFF,
-					(copy[i + 1][j].color >> 16) & 0xFF, percent);
-	green = find_bri((copy[i][j].color >> 8) & 0xFF,
-					(copy[i + 1][j].color >> 8) & 0xFF, percent);
-	blue = find_bri(copy[i][j].color & 0xFF,
-					copy[i + 1][j].color & 0xFF, percent);
+	red = find_bri((copy[i][j].color >> 16) & 0xff,
+			(copy[i + 1][j].color >> 16) & 0xff, percent);
+	green = find_bri((copy[i][j].color >> 8) & 0xff,
+			(copy[i + 1][j].color >> 8) & 0xff, percent);
+	blue = find_bri(copy[i][j].color & 0xff,
+			copy[i + 1][j].color & 0xff, percent);
 	return ((red << 16) | (green << 8) | blue);
 }
 
 int	ft_atoi_base(char *str)
 {
-	int	result;
-	int	i;
+	long int	result;
+	int			i;
 
 	i = 0;
 	result = 0;
@@ -68,7 +80,7 @@ int	ft_atoi_base(char *str)
 	while (str[i] && str[i] != ' ')
 	{
 		result *= 16;
-		if (str[i] >= '0' && str[i] <= 9)
+		if (str[i] >= '0' && str[i] <= '9')
 			result += str[i] - '0';
 		else if (str[i] >= 'a' && str[i] <= 'f')
 			result += str[i] - 'a' + 10;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_and_store.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 14:29:15 by micongiu          #+#    #+#             */
+/*   Updated: 2024/09/09 15:58:28 by micongiu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 void	allocate_mem(char **mat, t_data *allocate)
@@ -16,9 +28,11 @@ void	allocate_mem(char **mat, t_data *allocate)
 	allo = ft_count_nb(mat[0]);
 	while (mat[i])
 	{
-		allocate->map_info[i] = (t_m_info *)ft_calloc((allo + 1), sizeof(t_m_info ));
+		allocate->map_info[i] = (t_m_info *)ft_calloc((allo + 1),
+				sizeof(t_m_info));
 		if (allocate->map_info[i] == NULL)
-			return(free_matrix((void **)allocate->map_info), ft_error("Error in the allocate"));
+			return (free_matrix((void **)allocate->map_info),
+				ft_error("Error in the allocate"));
 		i++;
 	}
 	allocate->row = allo;
@@ -105,22 +119,6 @@ void	store_map(char *file_read, t_data *img)
 	free_matrix((void **)matrix_fileread);
 }
 
-int		set_scale(t_data *img)
-{
-	int sx;
-	int sy;
-	int	scale;
-
-	scale = 0;
-	sx = (WIN_X - 200) / img->collon;
-	sy = (WIN_Y - 200) / img->row;
-	if (sx < sy)
-		scale = sx / 2;
-	else
-		scale = sy / 2;
-	return (scale == 0 ? scale = 1 : 0);
-}
-
 void	store_map_help(char **tmp_split, t_data *img, int i)
 {
 	int		j;
@@ -145,6 +143,3 @@ void	store_map_help(char **tmp_split, t_data *img, int i)
 		j++;
 	}
 }
-
-
-

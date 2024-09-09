@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/09 14:26:01 by micongiu          #+#    #+#             */
+/*   Updated: 2024/09/09 15:58:53 by micongiu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FDF_H
 # define FDF_H
 
@@ -70,6 +82,7 @@ void		free_matrix(void **matrix);
 void		ft_error(char *str);
 void		pixel_put(t_data *data, int x, int y, int color);
 int			ft_min(int first, int second);
+int			set_scale(t_data *img);
 
 int			ft_close(t_data *img);
 void		ft_init(t_data *img);
@@ -78,10 +91,11 @@ int			ft_key(int key, t_data *img);
 void		ft_isometric_change(t_data *img, t_m_info **copy);
 void		ft_draw(t_data *img);
 
-int 		ft_count_nb(char *mat);
+int			ft_count_nb(char *mat);
 t_m_info	**ft_mem(t_data *img, t_m_info **copy);
 t_m_info	**ft_mem_copy(t_data *img, t_m_info **copy);
 void		ft_help_c(t_data *img, t_m_info **copy);
+void		ft_error_update(t_draw_var *var);
 
 double		ft_cent(int first, int second, int attualy);
 int			get_color_x(t_m_info **copy, t_draw_var var, int j, int i);
