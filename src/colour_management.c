@@ -14,9 +14,14 @@
 
 double	ft_cent(int first, int second, int attualy)
 {
-	if (second - first == 0)
+	double	calc1;
+	double	calc2;
+
+	calc1 = attualy - first;
+	calc2 = second - first;
+	if (calc2 == 0)
 		return (1.0);
-	return ((attualy - first) / (second - first));
+	return ((calc1 / calc2));
 }
 
 int	find_bri(int first, int second, double percent)
