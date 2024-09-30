@@ -32,6 +32,11 @@
 # define KEY_UP 65362
 # define KEY_PLUS 65451
 # define KEY_MINUS 65453
+# define MOONSTONE 0x0FA3B1
+# define HONEYDREW 0xD9E5D6
+# define VANILLA 0xEDDEA4
+# define ATOMIC_TANGERINE 0xF7A072
+# define SANDY_BROWN 0xFF9B42
 
 typedef struct s_minfo
 {
@@ -40,6 +45,13 @@ typedef struct s_minfo
 	int		z;
 	int		color;
 }				t_m_info;
+
+typedef struct s_center
+{
+	double	scale;
+	int		x_offset;
+	int		y_offset;
+}				t_center;
 
 typedef struct s_data
 {
@@ -51,6 +63,9 @@ typedef struct s_data
 	int			line_length;
 	int			endian;
 	t_m_info	**map_info;
+	t_center	center;
+	int			min_z;
+	int			max_z;
 	int			row;
 	int			collon;
 	double		zoom;
@@ -72,11 +87,7 @@ typedef struct s_draw
 
 int			main(int argc, char **argv);
 
-void		allocate_mem(char **mat, t_data *allocate);
-char		**open_file(char *file_read);
-char		**read_file_try(char **str_read, int fd, char *file_read);
 void		store_map(char *file_read, t_data *img);
-void		store_map_help(char **tmp_split, t_data *img, int i);
 
 void		free_matrix(void **matrix);
 void		ft_error(char *str);
@@ -101,5 +112,9 @@ double		ft_cent(int first, int second, int attualy);
 int			get_color_x(t_m_info **copy, t_draw_var var, int j, int i);
 int			get_color_y(t_m_info **copy, t_draw_var var, int j, int i);
 int			ft_atoi_base(char *str);
+
+void		set_center(t_data *img);
+void		set_color(t_data *img, int i);
+void		ft_error_free(char *str, void **to_free);
 
 #endif

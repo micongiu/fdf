@@ -37,32 +37,10 @@ void	allocate_mem(char **mat, t_data *allocate)
 	}
 	allocate->row = allo;
 	allocate->collon = i;
+	set_center(allocate);
 }
 
-char	**open_file(char *file_read)
-{
-	int		fd;
-	int		i;
-	char	**str_read;
-	char	**str_return;
-
-	fd = open(file_read, O_RDONLY);
-	i = 0;
-	str_read = ft_calloc((3), sizeof(char **));
-	if (str_read == NULL)
-		ft_error("Error in the allocate");
-	str_read[0] = get_next_line(fd);
-	if (str_read[0] == NULL)
-	{
-		ft_printf("Error in the reading\n");
-		free_matrix((void **)str_read);
-		exit(0);
-	}
-	str_return = read_file_try(str_read, fd, file_read);
-	return (close(fd), str_return);
-}
-
-char	**read_file_try(char **str_read, int fd, char *file_read)
+char	**read_file(char **str_read, int fd, char *file_read)
 {
 	int		k;
 	int		i;
@@ -90,6 +68,59 @@ char	**read_file_try(char **str_read, int fd, char *file_read)
 	return (str_read);
 }
 
+char	**open_file(char *file_read)
+{
+	int		fd;
+	int		i;
+	char	**str_read;
+	char	**str_return;
+
+	fd = open(file_read, O_RDONLY);
+	i = 0;
+	str_read = ft_calloc((3), sizeof(char **));
+	if (str_read == NULL)
+		ft_error("Error in the allocate");
+	str_read[0] = get_next_line(fd);
+	if (str_read[0] == NULL)
+	{
+		ft_printf("Error in the reading\n");
+		free_matrix((void **)str_read);
+		exit(0);
+	}
+	str_return = read_file(str_read, fd, file_read);
+	return (close(fd), str_return);
+}
+
+void	store_map_help(char **tmp_split, t_data *img, int i)
+{
+	int	j;
+	int	k;
+
+	j = 0;
+	while (tmp_split[j])
+	{
+		img->map_info[i][j].x = (j * img->center.scale) + img->center.x_offset;
+		img->map_info[i][j].y = (i * img->center.scale) + img->center.y_offset;
+		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
+		k = 0;
+		// while (tmp_split[j][k] && tmp_split[j][k] != ' ')
+		// {
+		// 	if (tmp_split[j][k] == ',')
+		// 	{
+		// 		img->map_info[i][k].color = ft_atoi_base(tmp_split[j]);
+		// 		break ;
+		// 	}
+		// 	k++;
+		// }
+		img->map_info[i][j].color = ft_atoi_base(tmp_split[j]);
+		if (img->map_info[i][j].z > img->max_z)
+			img->max_z = img->map_info[i][j].z;
+		if (img->map_info[i][j].z < img->min_z)
+			img->min_z = img->map_info[i][j].z;
+		j++;
+	}
+}
+
 void	store_map(char *file_read, t_data *img)
 {
 	int			i;
@@ -103,43 +134,12 @@ void	store_map(char *file_read, t_data *img)
 	while (matrix_fileread[i])
 	{
 		j = 0;
-		while (matrix_fileread[i][j])
-		{
-			if (matrix_fileread[i][j] == '\n')
-				matrix_fileread[i][j] = '\0';
-			j++;
-		}
 		tmp_split = ft_split(matrix_fileread[i], ' ');
 		if (tmp_split == NULL)
-			ft_error("Error in the allocate");
+			ft_error_free("Error in the allocate", (void **)matrix_fileread);
 		store_map_help(tmp_split, img, i);
 		free_matrix((void **)tmp_split);
 		i++;
-	}
-	free_matrix((void **)matrix_fileread);
-}
-
-void	store_map_help(char **tmp_split, t_data *img, int i)
-{
-	int		j;
-	double	scale;
-	int		x_offset;
-	int		y_offset;
-
-	j = 0;
-	x_offset = round(WIN_X / 3.5);
-	y_offset = round(WIN_Y / 8.5);
-	scale = (ft_min((WIN_X / img->collon), (WIN_Y / img->row)));
-	if (scale <= 4)
-		scale = 2;
-	else
-		scale /= 2;
-	while (tmp_split[j])
-	{
-		img->map_info[i][j].x = (j * scale) + x_offset;
-		img->map_info[i][j].y = (i * scale) + y_offset;
-		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
-		img->map_info[i][j].color = ft_atoi_base(tmp_split[j]);
-		j++;
-	}
+	}	
+	set_color(img, 0);
 }

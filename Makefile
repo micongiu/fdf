@@ -4,7 +4,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -g -I./include -O2
 
 SRCS = ./src/main.c ./src/read_and_store.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c ./src/utility.c ./src/utility_2.c  \
-		./src/ft_mlx.c ./src/print_map.c ./src/colour_management.c
+		./src/ft_mlx.c ./src/print_map.c ./src/colour_management.c ./src/utility_3.c
 SRC_DIRS = ./src
 OBJS = ${SRCS:.c=.o}
 
