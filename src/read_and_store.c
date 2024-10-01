@@ -31,8 +31,7 @@ void	allocate_mem(char **mat, t_data *allocate)
 		allocate->map_info[i] = (t_m_info *)ft_calloc((allo + 1),
 				sizeof(t_m_info));
 		if (allocate->map_info[i] == NULL)
-			return (free_matrix((void **)allocate->map_info),
-				ft_error("Error in the allocate"));
+			ft_error_free("Error in the allocate", (void **)allocate->map_info);
 		i++;
 	}
 	allocate->row = allo;
@@ -91,28 +90,41 @@ char	**open_file(char *file_read)
 	return (close(fd), str_return);
 }
 
+void	fdf_atoi(t_data *img, char *str, int i, int j)
+{
+	int	result;
+	int	sign;
+
+	sign = 1;
+	result = 0;
+	if (*str == '+' || *str == '-')
+	{
+		if (*(str++) == '-')
+			sign *= -1;
+	}
+	while (ft_isdigit(*str))
+	{
+		result = result * 10;
+		result += (*str++ - '0');
+	}
+	img->map_info[i][j].z = (sign * result);
+	if (*str == ',' && *str)
+		img->map_info[i][j].color = ft_atoi_base(str);
+	return ;
+}
+
 void	store_map_help(char **tmp_split, t_data *img, int i)
 {
 	int	j;
-	int	k;
 
 	j = 0;
 	while (tmp_split[j])
 	{
+		// printf("%d\t%d\n", i, j);
+		// printf("%x\n", img->map_info[i][j]);
 		img->map_info[i][j].x = (j * img->center.scale) + img->center.x_offset;
 		img->map_info[i][j].y = (i * img->center.scale) + img->center.y_offset;
-		img->map_info[i][j].z = ft_atoi(tmp_split[j]);
-		k = 0;
-		// while (tmp_split[j][k] && tmp_split[j][k] != ' ')
-		// {
-		// 	if (tmp_split[j][k] == ',')
-		// 	{
-		// 		img->map_info[i][k].color = ft_atoi_base(tmp_split[j]);
-		// 		break ;
-		// 	}
-		// 	k++;
-		// }
-		img->map_info[i][j].color = ft_atoi_base(tmp_split[j]);
+		fdf_atoi(img, tmp_split[j], i, j);
 		if (img->map_info[i][j].z > img->max_z)
 			img->max_z = img->map_info[i][j].z;
 		if (img->map_info[i][j].z < img->min_z)
@@ -141,5 +153,7 @@ void	store_map(char *file_read, t_data *img)
 		free_matrix((void **)tmp_split);
 		i++;
 	}	
+	free_matrix((void **)matrix_fileread);
 	set_color(img, 0);
+	ft_printf("Finish reading\n");
 }

@@ -26,6 +26,11 @@ int	ft_count_nb(char *mat)
 			allo++;
 			j++;
 		}
+		if (mat[j] == '-')
+		{
+			j++;
+			allo++;
+		}
 		while (mat[j] && mat[j] != ' ')
 			j++;
 		if (mat[j])
