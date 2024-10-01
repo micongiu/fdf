@@ -155,5 +155,6 @@ void	store_map(char *file_read, t_data *img)
 	}	
 	free_matrix((void **)matrix_fileread);
 	set_color(img, 0);
-	ft_printf("Finish reading\n");
+	mlx_string_put(img->mlx, img->mlx_win,
+		765, 700, 0x002eff, "Finish reading");
 }

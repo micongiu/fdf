@@ -63,7 +63,8 @@ t_m_info	**ft_mem(t_data *img, t_m_info **copy)
 		i++;
 	}
 	copy = ft_mem_copy(img, copy);
-	ft_isometric_change(img, copy);
+	if (img->iso_on_off == 1)
+		ft_isometric_change(img, copy);
 	return (copy);
 }
 

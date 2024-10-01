@@ -23,6 +23,8 @@ int	main(int argc, char **argv)
 	if (ft_strnstr(argv[1], ".fdf", ft_strlen_lib(argv[1])) == NULL)
 		ft_error("Use only .fdf file");
 	ft_init(&img);
+	if (img.menu_on_off == 1)
+		print_menu(&img);
 	store_map(argv[1], &img);
 	ft_draw(&img);
 	mlx_hook(img.mlx_win, ON_DESTROY, 0, ft_close, &img);

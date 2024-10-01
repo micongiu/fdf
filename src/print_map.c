@@ -121,7 +121,8 @@ void	ft_draw(t_data *img)
 	ft_move_map(img, copy_map);
 	ft_bzero(img->addr, WIN_X * WIN_Y * (img->bits_per_pixel / 8));
 	i = 0;
-	j = 0;
+	if (img->collon > 30)
+		sleep(5);
 	while (i < img->collon)
 	{
 		j = 0;

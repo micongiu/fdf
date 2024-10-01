@@ -25,6 +25,7 @@
 # define ON_DESTROY 17
 # define WIN_X	1920
 # define WIN_Y	1200
+# define KEY_E 101
 # define KEY_ESC 65307
 # define KEY_LEFT 65361
 # define KEY_RIGHT 65363
@@ -64,6 +65,8 @@ typedef struct s_data
 	int			endian;
 	t_m_info	**map_info;
 	t_center	center;
+	int			iso_on_off;
+	int			menu_on_off;
 	int			min_z;
 	int			max_z;
 	int			row;
@@ -93,7 +96,6 @@ void		free_matrix(void **matrix);
 void		ft_error(char *str);
 void		pixel_put(t_data *data, int x, int y, int color);
 int			ft_min(int first, int second);
-int			set_scale(t_data *img);
 
 int			ft_close(t_data *img);
 void		ft_init(t_data *img);
@@ -116,5 +118,6 @@ int			ft_atoi_base(char *str);
 void		set_center(t_data *img);
 void		set_color(t_data *img, int i);
 void		ft_error_free(char *str, void **to_free);
+void		print_menu(t_data *img);
 
 #endif
