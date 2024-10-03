@@ -1,7 +1,7 @@
 NAME = fdf
 
-CC = gcc
-CFLAGS = -Wall -Wextra -g -I./include -O2
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -g -I./include -O2
 
 SRCS = ./src/main.c ./src/read_and_store.c ./gnl/get_next_line_utils.c ./gnl/get_next_line.c ./src/utility.c ./src/utility_2.c  \
 		./src/ft_mlx.c ./src/print_map.c ./src/colour_management.c ./src/utility_3.c
@@ -22,7 +22,6 @@ OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,${SRCS})
 
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(@D)
-	@mkdir -p ./obj/ft_printf
 	@mkdir -p ./obj/libft
 	@mkdir -p ./obj/ft_printf
 	@$(CC) -g -c $< -o $@;

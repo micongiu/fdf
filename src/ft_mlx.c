@@ -75,6 +75,7 @@ void	ft_init(t_data *img)
 	img->min_z = 0;
 	img->iso_on_off = 1;
 	img->menu_on_off = 1;
+	img->sleep_on_off = 1;
 }
 
 void	print_menu(t_data *img)

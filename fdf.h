@@ -67,6 +67,7 @@ typedef struct s_data
 	t_center	center;
 	int			iso_on_off;
 	int			menu_on_off;
+	int			sleep_on_off;
 	int			min_z;
 	int			max_z;
 	int			row;
