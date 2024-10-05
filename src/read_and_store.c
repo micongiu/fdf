@@ -6,7 +6,7 @@
 /*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:15 by micongiu          #+#    #+#             */
-/*   Updated: 2024/09/09 15:58:28 by micongiu         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:08:28 by micongiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,29 +90,6 @@ char	**open_file(char *file_read)
 	return (close(fd), str_return);
 }
 
-void	fdf_atoi(t_data *img, char *str, int i, int j)
-{
-	int	result;
-	int	sign;
-
-	sign = 1;
-	result = 0;
-	if (*str == '+' || *str == '-')
-	{
-		if (*(str++) == '-')
-			sign *= -1;
-	}
-	while (ft_isdigit(*str))
-	{
-		result = result * 10;
-		result += (*str++ - '0');
-	}
-	img->map_info[i][j].z = (sign * result);
-	if (*str == ',' && *str)
-		img->map_info[i][j].color = ft_atoi_base(str);
-	return ;
-}
-
 void	store_map_help(char **tmp_split, t_data *img, int i)
 {
 	int	j;
@@ -120,8 +97,6 @@ void	store_map_help(char **tmp_split, t_data *img, int i)
 	j = 0;
 	while (tmp_split[j])
 	{
-		// printf("%d\t%d\n", i, j);
-		// printf("%x\n", img->map_info[i][j]);
 		img->map_info[i][j].x = (j * img->center.scale) + img->center.x_offset;
 		img->map_info[i][j].y = (i * img->center.scale) + img->center.y_offset;
 		fdf_atoi(img, tmp_split[j], i, j);
@@ -152,7 +127,7 @@ void	store_map(char *file_read, t_data *img)
 		store_map_help(tmp_split, img, i);
 		free_matrix((void **)tmp_split);
 		i++;
-	}	
+	}
 	free_matrix((void **)matrix_fileread);
 	set_color(img, 0);
 	mlx_string_put(img->mlx, img->mlx_win,

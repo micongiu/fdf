@@ -6,7 +6,7 @@
 /*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:29:01 by micongiu          #+#    #+#             */
-/*   Updated: 2024/09/09 15:52:56 by micongiu         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:13:38 by micongiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,15 +128,7 @@ void	ft_draw(t_data *img)
 	}
 	while (i < img->collon)
 	{
-		j = 0;
-		while (j < img->row)
-		{
-			if (j < img->row - 1)
-				bresenhamline_x(img, copy_map, j, i);
-			if (i < img->collon - 1)
-				bresenhamline_y(img, copy_map, j, i);
-			j++;
-		}
+		ft_draw_help(img, copy_map, i, j);
 		i++;
 	}
 	free_matrix((void **)copy_map);

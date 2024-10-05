@@ -6,7 +6,7 @@
 /*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 14:26:01 by micongiu          #+#    #+#             */
-/*   Updated: 2024/09/09 15:58:53 by micongiu         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:13:33 by micongiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,12 +97,15 @@ void		free_matrix(void **matrix);
 void		ft_error(char *str);
 void		pixel_put(t_data *data, int x, int y, int color);
 int			ft_min(int first, int second);
+void		fdf_atoi(t_data *img, char *str, int i, int j);
 
 int			ft_close(t_data *img);
 void		ft_init(t_data *img);
 int			ft_key(int key, t_data *img);
 
 void		ft_isometric_change(t_data *img, t_m_info **copy);
+void		bresenhamline_x(t_data *img, t_m_info **copy, int j, int i);
+void		bresenhamline_y(t_data *img, t_m_info **copy, int j, int i);
 void		ft_draw(t_data *img);
 
 int			ft_count_nb(char *mat);
@@ -120,5 +123,6 @@ void		set_center(t_data *img);
 void		set_color(t_data *img, int i);
 void		ft_error_free(char *str, void **to_free);
 void		print_menu(t_data *img);
+void		ft_draw_help(t_data *img, t_m_info **copy_map, int i, int j);
 
 #endif

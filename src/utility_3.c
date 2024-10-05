@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utility_3.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/05 13:08:43 by micongiu          #+#    #+#             */
+/*   Updated: 2024/10/05 13:13:29 by micongiu         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fdf.h"
 
 int	default_color(t_data *img, int i, int k)
@@ -51,4 +63,17 @@ void	ft_error_free(char *str, void **to_free)
 	free_matrix(to_free);
 	ft_printf("%s\n", str);
 	exit(0);
+}
+
+void	ft_draw_help(t_data *img, t_m_info **copy_map, int i, int j)
+{
+	j = 0;
+	while (j < img->row)
+	{
+		if (j < img->row - 1)
+			bresenhamline_x(img, copy_map, j, i);
+		if (i < img->collon - 1)
+			bresenhamline_y(img, copy_map, j, i);
+		j++;
+	}
 }

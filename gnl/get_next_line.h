@@ -6,7 +6,7 @@
 /*   By: micongiu <micongiu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:41:31 by micongiu          #+#    #+#             */
-/*   Updated: 2024/03/19 14:32:20 by micongiu         ###   ########.fr       */
+/*   Updated: 2024/10/05 13:24:24 by micongiu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 100
 # endif
 
 char	*ft_strjoin(char *s1, char *s2);
